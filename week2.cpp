@@ -1,7 +1,7 @@
 #include "week2.h"
 #include "Arduino.h"
 
-motor::motor(int motor_Right1, int motor_Right2, int right_pwm,
+Motor::motor(int motor_Right1, int motor_Right2, int right_pwm,
     int motor_Left1, int motor_Left2, int left_pwm)
 {
     pinMode(motor_Right1, OUTPUT);
@@ -19,7 +19,7 @@ motor::motor(int motor_Right1, int motor_Right2, int right_pwm,
     _left_pwm = left_pwm;
 }
 
-void motor::moveForward()
+void Motor::moveForward()
 {
     digitalWrite(_motor_Left2, HIGH);
     digitalWrite(_motor_Left1, LOW);
@@ -31,7 +31,7 @@ void motor::moveForward()
     Stop();
 }
 
-void motor::moveBack()
+void Motor::moveBack()
 {
     digitalWrite(_motor_Left2, LOW);
     digitalWrite(_motor_Left1, HIGH);
@@ -43,7 +43,7 @@ void motor::moveBack()
     Stop();
 }
 
-void motor::moveLeft()
+void Motor::moveLeft()
 {
     digitalWrite(_motor_Left2, LOW);
     digitalWrite(_motor_Left1, LOW);
@@ -55,7 +55,7 @@ void motor::moveLeft()
     Stop();
 }
 
-void motor::moveLeftSmall()
+void Motor::moveLeftSmall()
 {
     digitalWrite(_motor_Left2, LOW);
     digitalWrite(_motor_Left1, LOW);
@@ -67,7 +67,7 @@ void motor::moveLeftSmall()
     Stop();
 }
 
-void motor::moveRight()
+void Motor::moveRight()
 {
     digitalWrite(_motor_Left2,HIGH);
     digitalWrite(_motor_Left1,LOW);
@@ -79,7 +79,7 @@ void motor::moveRight()
     Stop();
 }
 
-void motor::moveRightSmall()
+void Motor::moveRightSmall()
 {
     digitalWrite(_motor_Left2, HIGH);
     digitalWrite(_motor_Left1, LOW);
@@ -91,7 +91,7 @@ void motor::moveRightSmall()
     Stop();
 }
 
-void motor::Stop()
+void Motor::Stop()
 {
     digitalWrite(_motor_Left1, LOW);
     digitalWrite(_motor_Left2, LOW);
@@ -99,7 +99,7 @@ void motor::Stop()
     digitalWrite(_motor_Right2, LOW);
 }
 
-sensor::sensor(int IR_Objects_Right, int IR_Objects_Mid, int IR_Objects_Left)
+Sensor::sensor(int IR_Objects_Right, int IR_Objects_Mid, int IR_Objects_Left)
 {
     pinMode(IR_Objects_Right, INPUT);
     pinMode(IR_Objects_Mid, INPUT);
@@ -110,7 +110,7 @@ sensor::sensor(int IR_Objects_Right, int IR_Objects_Mid, int IR_Objects_Left)
     _IR_Objects_Left = IR_Objects_Left;
 }
 
-int sensor::sensor_read() {
+int Sensor::sensor_read() {
     if (digitalRead(_IR_Objects_Right) == 1 && digitalRead(_IR_Objects_Mid) == 0 && digitalRead(_IR_Objects_Left) == 1) {
         return 1;
     }
@@ -133,4 +133,5 @@ int sensor::sensor_read() {
         return 5;
     }
 
+    return -1;
 }
