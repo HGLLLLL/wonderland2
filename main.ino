@@ -1,24 +1,24 @@
 #include"week2.h"
 
-#define motor_Right1 9
-#define motor_Right2 8 
-#define motor_Left1 4
-#define motor_Left2 3
-#define right_pwm 10
-#define left_pwm 11
-#define IR_Objects_Right 5
-#define IR_Objects_Mid 6
-#define IR_Objects_Left 7
+#define MOTOR_RIGHT1 9
+#define MOTOR_RIGHT2 8 
+#define MOTOR_LEFT1 4
+#define MOTOR_LEFT2 3
+#define RIGHT_PWM 10
+#define LEFT_PWM 11
+#define IR_OBJECTS_RIGHT 5
+#define IR_OBJECTS_MID 6
+#define IR_OBJECTS_LEFT 7
 
 int state = 0;
-char moterstatus;
+char motorstatus;
 char sensorstatus;
 SoftwareSerial BT(13 , 12);
 
-motor motor(int motor_Right1, int motor_Right2, int right_pwm,
-    int motor_Left1, int motor_Left2, int left_pwm);
+Motor motor(int MOTOR_RIGHT1, int MOTOR_RIGHT2, int RIGHT_PWM,
+    int MOTOR_LEFT1, int MOTOR_LEFT2, int LEFT_PWM);
 
-sensor sensor(int IR_Objects_Right, int IR_Objects_Mid, int IR_Objects_Left);
+Sensor sensor(int IR_OBJECTS_RIGHT, int IR_OBJECTS_MID, int IR_OBJECTS_LEFT);
 
 void setup() 
 {
@@ -32,19 +32,21 @@ void loop()
     
     switch(sensorstatus){
       case 1:
-      motor.moveForward();
-      break;
+        motor.moveForward();
+        break;
       case 2:
-      motor.moveBack();
-      break;
+        motor.moveBack();
+        break;
       case 3:
-      motor.moveLeftSmall();
-      break;
+        motor.moveLeftSmall();
+        break;
       case 4:
-      motor.moveRighttSmall();
+        motor.moveRighttSmall();
+        break;
       case 5:
-      motor.stop();
-      state = 1;
+        motor.stop();
+        state = 1;
+        break;
     }
   }
 
@@ -52,28 +54,28 @@ void loop()
   {
     if (BT.available())
     {
-      moterstatus=BT.read();
-      Serial.println(moterstatus); 
+      motorstatus=BT.read();
+      Serial.println(motorstatus); 
     }
     
-    switch (moterstatus)
+    switch (motorstatus)
     { 
       case 'F':
-      Serial.println(moterstatus);
-      motor.moveForward();
-      break;
+        Serial.println(motorstatus);
+        motor.moveForward();
+        break;
       case 'L':
-      Serial.println(moterstatus);
-      motor.moveLeft();
-      break;
+        Serial.println(motorstatus);
+        motor.moveLeft();
+        break;
       case 'R':
-      Serial.println(moterstatus);
-      motor.moveRight();
-      break;
+        Serial.println(motorstatus);
+        motor.moveRight();
+        break;
       case 'B':
-      Serial.println(moterstatus);
-      motor.moveBack();
-      break;
+        Serial.println(motorstatus);
+        motor.moveBack();
+        break;
       
     }
   }
